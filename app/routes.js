@@ -12,7 +12,7 @@ router.use('/', (req, res, next) => {
     next()
 })
 // Run this code when a form is submitted to 'juggling-balls-answer'
-router.post('/juggling-balls-answer', function (req, res) {
+router.post('/current/juggling-balls-answer', function (req, res) {
 
     // Make a variable and give it the value from 'how-many-balls'
     var howManyBalls = req.session.data['how-many-balls']
@@ -20,11 +20,17 @@ router.post('/juggling-balls-answer', function (req, res) {
     // Check whether the variable matches a condition
     if (howManyBalls == "3 or more"){
       // Send user to next page
-      res.redirect('/juggling-trick')
+      res.redirect('/current/juggling-trick')
     } else {
       // Send user to ineligible page
-      res.redirect('/ineligible')
+      res.redirect('/current/ineligible')
     }
   
   })
+
+  // Start folder-specific routes
+
+  // Current sprint. Remember to add older sprint when adding a new folder — When starting a new sprint, duplicate the "current" folder and then put a link in "app/view/routes.js" to make sure all the logic in the old folder still works.
+  router.use('/current', require('./views/current/__routes'));
+
 module.exports = router
